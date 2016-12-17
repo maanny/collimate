@@ -18,6 +18,11 @@ function Node(pos, words) {
         this.rightAnchor = new Point(this.pos.x + this.width/2, this.pos.y);
     }
 
+    this.move = function(x, y) {
+        this.pos.x = x;
+        this.pos.y = y;
+    }
+
     this.draw = function() {
         this.geometry();
 
@@ -42,14 +47,17 @@ function Node(pos, words) {
         noFill();
         stroke(51);
         strokeWeight(5);
+
         fr = this.rightAnchor;
         // fl = this.leftAnchor;
-        fw = this.width;
+        // fw = this.width;
 
         // tr = toNode.rightAnchor;
         tl = toNode.leftAnchor;
-        tw = toNode.width;
+        // tw = toNode.width;
 
-        bezier(fr.x, fr.y, fr.x+fw, fr.y, tl.x-tw, tl.y, tl.x, tl.y);
+        d = abs(this.rightAnchor.x - toNode.leftAnchor.x);
+
+        bezier(fr.x, fr.y, fr.x+d/2, fr.y, tl.x-d/2, tl.y, tl.x, tl.y);
     }
 }
